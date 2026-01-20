@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
 
 export default function Header() {
@@ -34,27 +35,14 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <nav className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative">
-              <svg
-                width="40"
-                height="40"
-                viewBox="0 0 100 100"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="transition-transform duration-300 group-hover:scale-105"
-              >
-                {/* Bird/Chart icon */}
-                <path
-                  d="M50 15 L30 35 L40 35 L40 45 L25 60 L75 60 L60 45 L60 35 L70 35 L50 15Z"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                  fill="none"
-                  className="text-vogel-gold"
-                />
-                <circle cx="35" cy="42" r="4" className="fill-vogel-gold" />
-              </svg>
-            </div>
+          <Link href="/" className="flex items-center gap-2 group">
+            <Image
+              src="/logo-transparent.png"
+              alt="Vogel Research"
+              width={48}
+              height={48}
+              className="transition-transform duration-300 group-hover:scale-105"
+            />
             <span className="font-display text-xl font-semibold text-vogel-white tracking-wide">
               VOGEL RESEARCH
             </span>
