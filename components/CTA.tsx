@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
 export default function CTA() {
@@ -13,22 +14,12 @@ export default function CTA() {
       <div className="max-w-4xl mx-auto relative z-10 text-center">
         {/* Icon/Visual */}
         <div className="w-20 h-20 mx-auto mb-8 rounded-2xl bg-vogel-gold/10 border border-vogel-gold/30 flex items-center justify-center">
-          <svg
-            width="40"
-            height="40"
-            viewBox="0 0 100 100"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M50 15 L30 35 L40 35 L40 45 L25 60 L75 60 L60 45 L60 35 L70 35 L50 15Z"
-              stroke="currentColor"
-              strokeWidth="4"
-              fill="none"
-              className="text-vogel-gold"
-            />
-            <circle cx="35" cy="42" r="4" className="fill-vogel-gold" />
-          </svg>
+          <Image
+            src="/logo-transparent.png"
+            alt="Vogel Research"
+            width={50}
+            height={50}
+          />
         </div>
 
         {/* Content */}

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Youtube, Instagram, Linkedin, Twitter, Mail } from "lucide-react";
 
 const footerLinks = {
@@ -36,23 +37,13 @@ export default function Footer() {
         <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand column */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-3 mb-6">
-              <svg
-                width="36"
-                height="36"
-                viewBox="0 0 100 100"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M50 15 L30 35 L40 35 L40 45 L25 60 L75 60 L60 45 L60 35 L70 35 L50 15Z"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                  fill="none"
-                  className="text-vogel-gold"
-                />
-                <circle cx="35" cy="42" r="4" className="fill-vogel-gold" />
-              </svg>
+            <Link href="/" className="flex items-center gap-2 mb-6">
+              <Image
+                src="/logo-transparent.png"
+                alt="Vogel Research"
+                width={40}
+                height={40}
+              />
               <span className="font-display text-lg font-semibold text-vogel-white tracking-wide">
                 VOGEL RESEARCH
               </span>
