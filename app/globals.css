@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'DM Sans', sans-serif;
+  
+  --color-green-dark: #0E4F3D;
+  --color-green: #18785A;
+  --color-gold: #BFA66B;
+  --color-black: #111111;
+  --color-white: #F7F7F4;
+  --color-gray: #9A9A9A;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-black);
+  color: var(--color-white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-green-dark);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-green);
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-gold);
+  color: var(--color-black);
+}
+
+/* Animations */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(191, 166, 107, 0.1) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Utility classes */
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(135deg, var(--color-gold) 0%, #d4c08a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .border-gradient {
+    border: 1px solid transparent;
+    background: linear-gradient(var(--color-black), var(--color-black)) padding-box,
+                linear-gradient(135deg, var(--color-green-dark), var(--color-gold)) border-box;
+  }
+  
+  .glass {
+    background: rgba(17, 17, 17, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  
+  .noise {
+    position: relative;
+  }
+  
+  .noise::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+/* Button styles */
+.btn-primary {
+  @apply inline-flex items-center justify-center px-8 py-4 bg-vogel-gold text-vogel-black font-semibold rounded-lg transition-all duration-300 hover:bg-vogel-gold-light hover:shadow-lg hover:shadow-vogel-gold/20 hover:-translate-y-0.5;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center px-8 py-4 border border-vogel-gold text-vogel-gold font-semibold rounded-lg transition-all duration-300 hover:bg-vogel-gold hover:text-vogel-black;
+}
+
+.btn-ghost {
+  @apply inline-flex items-center justify-center px-6 py-3 text-vogel-white/80 font-medium transition-all duration-300 hover:text-vogel-gold;
+}
+
+/* Section styles */
+.section {
+  @apply py-20 md:py-32 px-4 md:px-8;
+}
+
+.section-title {
+  @apply text-4xl md:text-5xl lg:text-6xl font-display font-semibold mb-6;
+}
+
+.section-subtitle {
+  @apply text-lg md:text-xl text-vogel-gray max-w-2xl;
+}
+
+/* Card styles */
+.card {
+  @apply bg-vogel-black/50 border border-vogel-green-dark/30 rounded-2xl p-6 md:p-8 transition-all duration-300 hover:border-vogel-gold/50 hover:shadow-lg hover:shadow-vogel-gold/5;
+}
+
+/* Focus styles */
+*:focus-visible {
+  @apply outline-none ring-2 ring-vogel-gold ring-offset-2 ring-offset-vogel-black;
+}
