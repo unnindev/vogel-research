@@ -23,10 +23,10 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { icon: Youtube, href: "#", label: "YouTube" },
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
+  { icon: Youtube, href: "https://www.youtube.com/@BrunoVoegels", label: "YouTube" },
+  { icon: Instagram, href: "https://www.instagram.com/vogelresearch", label: "Instagram" },
+  { icon: Twitter, href: "https://x.com/vogelres", label: "Twitter" },
+  // { icon: Linkedin, href: "#", label: "LinkedIn" }, // TODO: Adicionar quando criar
 ];
 
 export default function Footer() {
