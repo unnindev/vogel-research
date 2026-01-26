@@ -1,24 +1,43 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Eye, EyeOff } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff, AlertCircle } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
+  const { signIn } = useAuth();
+  const router = useRouter();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    // TODO: Implementar autenticação
-    console.log("Login:", formData);
-    setTimeout(() => setIsLoading(false), 1000);
+    setError("");
+
+    try {
+      await signIn(formData.email, formData.password);
+      router.push("/dashboard");
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message === "Invalid login credentials"
+            ? "E-mail ou senha incorretos"
+            : err.message
+          : "Erro ao fazer login"
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -58,10 +77,16 @@ export default function LoginPage() {
               <h1 className="text-2xl font-display font-semibold text-vogel-white mb-2">
                 Bem-vindo de volta
               </h1>
-              <p className="text-vogel-gray">
-                Entre para acessar sua conta
-              </p>
+              <p className="text-vogel-gray">Entre para acessar sua conta</p>
             </div>
+
+            {/* Error message */}
+            {error && (
+              <div className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-lg flex items-center gap-3">
+                <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
+                <p className="text-red-400 text-sm">{error}</p>
+              </div>
+            )}
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>

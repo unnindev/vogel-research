@@ -10,7 +10,9 @@ import {
   Users,
   Settings,
   LogOut,
+  Shield,
 } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const menuItems = [
   { icon: Home, label: "Feed", href: "/dashboard" },
@@ -22,6 +24,7 @@ const menuItems = [
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const { profile, signOut, isAdmin } = useAuth();
 
   return (
     <aside className="fixed left-0 top-0 h-screen w-64 bg-vogel-black border-r border-vogel-green-dark/20 flex flex-col z-40">
@@ -64,6 +67,19 @@ export default function Sidebar() {
               </li>
             );
           })}
+
+          {/* Admin link - only show for admins */}
+          {isAdmin && (
+            <li className="pt-4 mt-4 border-t border-vogel-green-dark/20">
+              <Link
+                href="/admin"
+                className="flex items-center gap-3 px-4 py-3 rounded-lg text-vogel-gold hover:bg-vogel-gold/10 transition-all duration-200"
+              >
+                <Shield className="w-5 h-5" />
+                <span className="font-medium">Painel Admin</span>
+              </Link>
+            </li>
+          )}
         </ul>
       </nav>
 
@@ -71,14 +87,21 @@ export default function Sidebar() {
       <div className="p-4 border-t border-vogel-green-dark/20">
         <div className="flex items-center gap-3 px-4 py-3 mb-2">
           <div className="w-10 h-10 rounded-full bg-vogel-green-dark/30 flex items-center justify-center text-vogel-gold font-semibold">
-            U
+            {profile?.name?.[0]?.toUpperCase() || "U"}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-vogel-white font-medium truncate">Usuário</p>
-            <p className="text-vogel-gray text-xs truncate">usuario@email.com</p>
+            <p className="text-vogel-white font-medium truncate">
+              {profile?.name || "Usuário"}
+            </p>
+            <p className="text-vogel-gray text-xs truncate">
+              {profile?.email || ""}
+            </p>
           </div>
         </div>
-        <button className="flex items-center gap-3 px-4 py-3 w-full rounded-lg text-vogel-gray hover:text-red-400 hover:bg-red-400/10 transition-all duration-200">
+        <button
+          onClick={signOut}
+          className="flex items-center gap-3 px-4 py-3 w-full rounded-lg text-vogel-gray hover:text-red-400 hover:bg-red-400/10 transition-all duration-200"
+        >
           <LogOut className="w-5 h-5" />
           <span className="font-medium">Sair</span>
         </button>
