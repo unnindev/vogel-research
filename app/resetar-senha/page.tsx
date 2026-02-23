@@ -18,11 +18,26 @@ export default function ResetPasswordPage() {
   const router = useRouter();
 
   useEffect(() => {
+    // Verificar erros no hash da URL
+    const hashParams = new URLSearchParams(window.location.hash.substring(1));
+    const errorCode = hashParams.get('error_code');
+    const errorDescription = hashParams.get('error_description');
+
+    if (errorCode === 'otp_expired') {
+      setError("O link de recuperação expirou. Por favor, solicite um novo link.");
+      return;
+    }
+
+    if (errorDescription) {
+      setError(decodeURIComponent(errorDescription));
+      return;
+    }
+
     // Verificar se há uma sessão de recuperação
     const checkSession = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
-        setError("Link de recuperação inválido ou expirado");
+        setError("Link de recuperação inválido ou expirado. Solicite um novo link.");
       }
     };
     checkSession();
