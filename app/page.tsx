@@ -1,6 +1,7 @@
 import {
   Header,
   Hero,
+  Stats,
   About,
   Services,
   Pricing,
@@ -15,6 +16,7 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
+        <Stats />
         <About />
         <Services />
         <Pricing />
