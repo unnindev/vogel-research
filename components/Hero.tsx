@@ -6,8 +6,17 @@ import { ArrowRight, TrendingUp, Shield, Users } from "lucide-react";
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden noise">
+      {/* Background Image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=2940&auto=format&fit=crop')`,
+        }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-vogel-black via-vogel-black/95 to-vogel-black" />
+
       {/* Background Elements */}
-      <div className="absolute inset-0 bg-hero-pattern opacity-90" />
+      <div className="absolute inset-0 bg-hero-pattern opacity-40" />
       
       {/* Decorative grid */}
       <div

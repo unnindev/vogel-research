@@ -35,15 +35,15 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <nav className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
+          <Link href="/" className="flex items-center gap-3 group">
             <Image
               src="/logo-transparent.png"
               alt="Vogel Research"
-              width={48}
-              height={48}
+              width={56}
+              height={56}
               className="transition-transform duration-300 group-hover:scale-105"
             />
-            <span className="font-display text-xl font-semibold text-vogel-white tracking-wide">
+            <span className="font-display text-2xl font-semibold text-vogel-white tracking-wide">
               VOGEL RESEARCH
             </span>
           </Link>

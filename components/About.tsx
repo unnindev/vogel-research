@@ -18,18 +18,23 @@ export default function About() {
               
               {/* Main image placeholder */}
               <div className="relative z-10 h-full bg-gradient-to-br from-vogel-green-dark to-vogel-black rounded-2xl overflow-hidden">
-                {/* Placeholder for Bruno's photo */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center p-8">
-                    <div className="w-32 h-32 mx-auto mb-6 rounded-full bg-vogel-green/20 border-2 border-vogel-gold/30 flex items-center justify-center">
-                      <span className="text-5xl font-display text-vogel-gold">B</span>
-                    </div>
-                    <p className="text-vogel-gray text-sm">Foto do Bruno</p>
+                {/* Placeholder image - substituir pela foto do Bruno */}
+                <img
+                  src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=2940&auto=format&fit=crop"
+                  alt="Bruno Voegel - Fundador Vogel Research"
+                  className="w-full h-full object-cover"
+                />
+
+                {/* Overlay gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-vogel-black/80 via-transparent to-transparent" />
+
+                {/* Name badge */}
+                <div className="absolute bottom-6 left-6 right-6">
+                  <div className="bg-vogel-black/80 backdrop-blur-sm border border-vogel-gold/30 rounded-lg p-4">
+                    <p className="text-vogel-gold font-semibold text-lg">Bruno Voegel</p>
+                    <p className="text-vogel-gray text-sm">Fundador & Analista Principal</p>
                   </div>
                 </div>
-                
-                {/* Overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-vogel-black via-transparent to-transparent" />
               </div>
 
               {/* Floating stat card */}
