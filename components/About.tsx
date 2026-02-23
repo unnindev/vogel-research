@@ -21,7 +21,7 @@ export default function About() {
                 {/* Placeholder image - substituir pela foto do Bruno */}
                 <img
                   src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=2940&auto=format&fit=crop"
-                  alt="Bruno Voegel - Fundador Vogel Research"
+                  alt="Bruno Voegels - Fundador Vogel Research"
                   className="w-full h-full object-cover"
                 />
 
@@ -31,7 +31,7 @@ export default function About() {
                 {/* Name badge */}
                 <div className="absolute bottom-6 left-6 right-6">
                   <div className="bg-vogel-black/80 backdrop-blur-sm border border-vogel-gold/30 rounded-lg p-4">
-                    <p className="text-vogel-gold font-semibold text-lg">Bruno Voegel</p>
+                    <p className="text-vogel-gold font-semibold text-lg">Bruno Voegels</p>
                     <p className="text-vogel-gray text-sm">Fundador & Analista Principal</p>
                   </div>
                 </div>

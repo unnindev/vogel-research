@@ -13,7 +13,7 @@ export default function Hero() {
           backgroundImage: `url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=2940&auto=format&fit=crop')`,
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-vogel-black via-vogel-black/95 to-vogel-black" />
+      <div className="absolute inset-0 bg-gradient-to-b from-vogel-black/90 via-vogel-black/80 to-vogel-black/90" />
 
       {/* Background Elements */}
       <div className="absolute inset-0 bg-hero-pattern opacity-40" />
