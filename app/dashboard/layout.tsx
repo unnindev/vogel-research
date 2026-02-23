@@ -49,7 +49,7 @@ export default function DashboardLayout({
       />
 
       {/* Main content */}
-      <main className="lg:ml-64 min-h-screen">{children}</main>
+      <main className="lg:ml-20 min-h-screen">{children}</main>
     </div>
   );
 }

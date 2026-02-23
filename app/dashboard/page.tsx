@@ -1,211 +1,226 @@
 "use client";
 
-import { useState } from "react";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import {
-  Heart,
-  MessageCircle,
-  Bookmark,
   TrendingUp,
   TrendingDown,
+  DollarSign,
+  Activity,
+  ArrowUpRight,
+  ArrowDownRight,
   Clock,
-  Play,
 } from "lucide-react";
 
-// Dados mock para o feed
-const feedPosts = [
+// Mock data - será substituído por API real
+const marketData = {
+  sp500: { value: "4,783.45", change: "+1.23%", isPositive: true },
+  nasdaq: { value: "15,011.35", change: "+2.15%", isPositive: true },
+  dow: { value: "37,305.16", change: "+0.56%", isPositive: true },
+  vix: { value: "13.42", change: "-5.23%", isPositive: true },
+};
+
+const fearGreedIndex = {
+  value: 67,
+  label: "Ganância",
+  description: "O mercado está mostrando sinais de ganância",
+  color: "text-green-400",
+  bgColor: "bg-green-500/20",
+};
+
+const recentAnalyses = [
   {
     id: 1,
-    type: "analise",
-    title: "Análise: Apple (AAPL) - Janeiro 2025",
-    excerpt:
-      "A Apple continua mostrando resiliência em seus resultados trimestrais. Vamos analisar os números e o que esperar para o próximo trimestre...",
-    author: "Bruno Voegel",
-    date: "Há 2 horas",
-    likes: 48,
-    comments: 12,
     ticker: "AAPL",
-    change: "+2.34%",
-    isPositive: true,
+    title: "Análise: Apple (AAPL) - Janeiro 2025",
+    date: "Há 2 horas",
   },
   {
     id: 2,
-    type: "video",
-    title: "Live: Revisão de Mercado Semanal",
-    excerpt:
-      "Nesta live, analisamos os principais movimentos da semana e discutimos as perspectivas para os próximos dias.",
-    author: "Bruno Voegel",
-    date: "Há 5 horas",
-    likes: 86,
-    comments: 34,
-    duration: "45:32",
-    thumbnail: "/video-thumb.jpg",
+    ticker: "NVDA",
+    title: "Alerta: Resultados NVDA acima do esperado",
+    date: "Há 1 dia",
   },
   {
     id: 3,
-    type: "alerta",
-    title: "Alerta: Resultados NVDA acima do esperado",
-    excerpt:
-      "A Nvidia reportou resultados trimestrais acima das expectativas. O lucro por ação foi de $5.16 vs $4.64 esperado...",
-    author: "Bruno Voegel",
-    date: "Há 1 dia",
-    likes: 124,
-    comments: 45,
-    ticker: "NVDA",
-    change: "+8.12%",
-    isPositive: true,
-  },
-  {
-    id: 4,
-    type: "analise",
-    title: "Por que estou de olho na Microsoft",
-    excerpt:
-      "A Microsoft tem se posicionado muito bem no mercado de IA com o Copilot e Azure. Veja minha análise completa...",
-    author: "Bruno Voegel",
-    date: "Há 2 dias",
-    likes: 67,
-    comments: 23,
     ticker: "MSFT",
-    change: "-0.45%",
-    isPositive: false,
+    title: "Por que estou de olho na Microsoft",
+    date: "Há 2 dias",
   },
 ];
 
 export default function DashboardPage() {
-  const [savedPosts, setSavedPosts] = useState<number[]>([]);
-
-  const toggleSave = (postId: number) => {
-    setSavedPosts((prev) =>
-      prev.includes(postId)
-        ? prev.filter((id) => id !== postId)
-        : [...prev, postId]
-    );
-  };
-
   return (
     <>
-      <DashboardHeader title="Feed" />
+      <DashboardHeader title="Dashboard" />
 
       <div className="p-6">
         {/* Welcome banner */}
         <div className="bg-gradient-to-r from-vogel-green-dark/30 to-vogel-gold/10 rounded-2xl p-6 mb-8 border border-vogel-green-dark/30">
-          <h2 className="text-2xl font-display font-semibold text-vogel-white mb-2">
-            Bem-vindo de volta! 👋
-          </h2>
-          <p className="text-vogel-gray">
-            Confira as últimas análises e atualizações da Vogel Research.
-          </p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-2xl font-display font-semibold text-vogel-white mb-2">
+                Bem-vindo de volta! 👋
+              </h2>
+              <p className="text-vogel-gray">
+                Acompanhe as principais métricas do mercado americano
+              </p>
+            </div>
+            <div className="hidden md:flex items-center gap-2 text-vogel-gray text-sm">
+              <Clock className="w-4 h-4" />
+              Atualizado há 5 minutos
+            </div>
+          </div>
         </div>
 
-        {/* Feed */}
-        <div className="space-y-6">
-          {feedPosts.map((post) => (
-            <article
-              key={post.id}
-              className="bg-vogel-black/50 border border-vogel-green-dark/30 rounded-xl p-6 hover:border-vogel-gold/30 transition-colors"
-            >
-              {/* Post header */}
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-vogel-gold/20 flex items-center justify-center text-vogel-gold font-semibold">
-                    B
-                  </div>
-                  <div>
-                    <p className="text-vogel-white font-medium">{post.author}</p>
-                    <p className="text-vogel-gray text-sm flex items-center gap-2">
-                      <Clock className="w-3 h-3" />
-                      {post.date}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Type badge */}
-                <span
-                  className={`text-xs font-semibold px-3 py-1 rounded-full ${
-                    post.type === "analise"
-                      ? "bg-blue-500/20 text-blue-400"
-                      : post.type === "video"
-                      ? "bg-purple-500/20 text-purple-400"
-                      : "bg-vogel-gold/20 text-vogel-gold"
-                  }`}
-                >
-                  {post.type === "analise"
-                    ? "Análise"
-                    : post.type === "video"
-                    ? "Vídeo"
-                    : "Alerta"}
-                </span>
-              </div>
-
-              {/* Post content */}
-              <h3 className="text-xl font-semibold text-vogel-white mb-2 hover:text-vogel-gold cursor-pointer transition-colors">
-                {post.title}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          {/* Fear & Greed Index */}
+          <div className="lg:col-span-1">
+            <div className="bg-vogel-black/50 border border-vogel-green-dark/30 rounded-xl p-6 h-full">
+              <h3 className="text-lg font-semibold text-vogel-white mb-4">
+                Fear & Greed Index
               </h3>
-              <p className="text-vogel-gray mb-4">{post.excerpt}</p>
 
-              {/* Ticker info if available */}
-              {post.ticker && (
-                <div className="flex items-center gap-4 mb-4 p-3 bg-vogel-green-dark/10 rounded-lg w-fit">
-                  <span className="font-mono font-semibold text-vogel-white">
-                    {post.ticker}
-                  </span>
-                  <span
-                    className={`flex items-center gap-1 font-semibold ${
-                      post.isPositive ? "text-green-400" : "text-red-400"
-                    }`}
-                  >
-                    {post.isPositive ? (
-                      <TrendingUp className="w-4 h-4" />
-                    ) : (
-                      <TrendingDown className="w-4 h-4" />
-                    )}
-                    {post.change}
-                  </span>
-                </div>
-              )}
-
-              {/* Video thumbnail if video */}
-              {post.type === "video" && (
-                <div className="relative mb-4 rounded-lg overflow-hidden bg-vogel-green-dark/20 aspect-video flex items-center justify-center cursor-pointer group">
-                  <div className="w-16 h-16 rounded-full bg-vogel-gold/90 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Play className="w-8 h-8 text-vogel-black ml-1" />
-                  </div>
-                  {post.duration && (
-                    <span className="absolute bottom-3 right-3 bg-black/80 text-white text-xs px-2 py-1 rounded">
-                      {post.duration}
-                    </span>
-                  )}
-                </div>
-              )}
-
-              {/* Post actions */}
-              <div className="flex items-center gap-6 pt-4 border-t border-vogel-green-dark/20">
-                <button className="flex items-center gap-2 text-vogel-gray hover:text-red-400 transition-colors">
-                  <Heart className="w-5 h-5" />
-                  <span className="text-sm">{post.likes}</span>
-                </button>
-                <button className="flex items-center gap-2 text-vogel-gray hover:text-vogel-gold transition-colors">
-                  <MessageCircle className="w-5 h-5" />
-                  <span className="text-sm">{post.comments}</span>
-                </button>
-                <button
-                  onClick={() => toggleSave(post.id)}
-                  className={`flex items-center gap-2 transition-colors ${
-                    savedPosts.includes(post.id)
-                      ? "text-vogel-gold"
-                      : "text-vogel-gray hover:text-vogel-gold"
-                  }`}
-                >
-                  <Bookmark
-                    className={`w-5 h-5 ${
-                      savedPosts.includes(post.id) ? "fill-current" : ""
-                    }`}
+              {/* Gauge visual */}
+              <div className="relative w-48 h-48 mx-auto mb-4">
+                <svg className="w-full h-full" viewBox="0 0 200 200">
+                  {/* Background arc */}
+                  <path
+                    d="M 30 170 A 85 85 0 0 1 170 170"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="20"
+                    className="text-vogel-green-dark/30"
                   />
-                  <span className="text-sm">Salvar</span>
-                </button>
+                  {/* Colored arc based on value */}
+                  <path
+                    d="M 30 170 A 85 85 0 0 1 170 170"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="20"
+                    strokeDasharray={`${(fearGreedIndex.value / 100) * 267} 267`}
+                    className={fearGreedIndex.color}
+                    strokeLinecap="round"
+                  />
+                  {/* Center value */}
+                  <text
+                    x="100"
+                    y="130"
+                    textAnchor="middle"
+                    className="text-5xl font-bold fill-vogel-white"
+                  >
+                    {fearGreedIndex.value}
+                  </text>
+                </svg>
               </div>
-            </article>
-          ))}
+
+              <div className="text-center">
+                <p
+                  className={`text-2xl font-bold mb-2 ${fearGreedIndex.color}`}
+                >
+                  {fearGreedIndex.label}
+                </p>
+                <p className="text-vogel-gray text-sm">
+                  {fearGreedIndex.description}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Market indices */}
+          <div className="lg:col-span-2">
+            <div className="grid grid-cols-2 gap-4">
+              {Object.entries(marketData).map(([key, data]) => (
+                <div
+                  key={key}
+                  className="bg-vogel-black/50 border border-vogel-green-dark/30 rounded-xl p-6"
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <p className="text-vogel-gray text-sm uppercase tracking-wide mb-1">
+                        {key === "sp500"
+                          ? "S&P 500"
+                          : key === "nasdaq"
+                          ? "NASDAQ"
+                          : key === "dow"
+                          ? "DOW JONES"
+                          : "VIX"}
+                      </p>
+                      <p className="text-2xl font-bold text-vogel-white">
+                        {data.value}
+                      </p>
+                    </div>
+                    <div
+                      className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                        data.isPositive
+                          ? "bg-green-500/20"
+                          : "bg-red-500/20"
+                      }`}
+                    >
+                      {data.isPositive ? (
+                        <TrendingUp className="w-5 h-5 text-green-400" />
+                      ) : (
+                        <TrendingDown className="w-5 h-5 text-red-400" />
+                      )}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span
+                      className={`flex items-center gap-1 text-sm font-semibold ${
+                        data.isPositive ? "text-green-400" : "text-red-400"
+                      }`}
+                    >
+                      {data.isPositive ? (
+                        <ArrowUpRight className="w-4 h-4" />
+                      ) : (
+                        <ArrowDownRight className="w-4 h-4" />
+                      )}
+                      {data.change}
+                    </span>
+                    <span className="text-vogel-gray text-xs">hoje</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Recent analyses */}
+        <div className="bg-vogel-black/50 border border-vogel-green-dark/30 rounded-xl overflow-hidden">
+          <div className="p-6 border-b border-vogel-green-dark/20 flex items-center justify-between">
+            <h3 className="text-lg font-semibold text-vogel-white">
+              Análises Recentes
+            </h3>
+            <a
+              href="/dashboard/feed"
+              className="text-vogel-gold text-sm hover:underline"
+            >
+              Ver todas
+            </a>
+          </div>
+
+          <div className="divide-y divide-vogel-green-dark/20">
+            {recentAnalyses.map((analysis) => (
+              <div
+                key={analysis.id}
+                className="p-6 hover:bg-vogel-green-dark/10 cursor-pointer transition-colors"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-lg bg-vogel-gold/20 flex items-center justify-center">
+                    <span className="font-mono font-bold text-vogel-gold text-sm">
+                      {analysis.ticker}
+                    </span>
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-vogel-white font-medium hover:text-vogel-gold transition-colors">
+                      {analysis.title}
+                    </p>
+                    <p className="text-vogel-gray text-sm">{analysis.date}</p>
+                  </div>
+                  <ArrowUpRight className="w-5 h-5 text-vogel-gray" />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </>
