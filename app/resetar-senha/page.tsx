@@ -18,29 +18,36 @@ export default function ResetPasswordPage() {
   const router = useRouter();
 
   useEffect(() => {
-    // Verificar erros no hash da URL
-    const hashParams = new URLSearchParams(window.location.hash.substring(1));
-    const errorCode = hashParams.get('error_code');
-    const errorDescription = hashParams.get('error_description');
+    const verifyToken = async () => {
+      // Pegar token_hash e type da URL
+      const params = new URLSearchParams(window.location.search);
+      const token_hash = params.get('token_hash');
+      const type = params.get('type');
 
-    if (errorCode === 'otp_expired') {
-      setError("O link de recuperação expirou. Por favor, solicite um novo link.");
-      return;
-    }
+      if (token_hash && type === 'recovery') {
+        // Verificar OTP para criar a sessão
+        const { error } = await supabase.auth.verifyOtp({
+          type: 'recovery',
+          token_hash,
+        });
 
-    if (errorDescription) {
-      setError(decodeURIComponent(errorDescription));
-      return;
-    }
+        if (error) {
+          setError("Link de recuperação inválido ou expirado. Solicite um novo link.");
+        }
+      } else {
+        // Verificar se há hash com erro
+        const hashParams = new URLSearchParams(window.location.hash.substring(1));
+        const errorCode = hashParams.get('error_code');
 
-    // Verificar se há uma sessão de recuperação
-    const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        setError("Link de recuperação inválido ou expirado. Solicite um novo link.");
+        if (errorCode === 'otp_expired') {
+          setError("O link de recuperação expirou. Por favor, solicite um novo link.");
+        } else if (!token_hash) {
+          setError("Link de recuperação inválido. Solicite um novo link.");
+        }
       }
     };
-    checkSession();
+
+    verifyToken();
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {

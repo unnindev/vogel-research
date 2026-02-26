@@ -19,11 +19,8 @@ export default function ForgotPasswordPage() {
     setSuccess(false);
 
     try {
-      // Sempre usar URL de produção para o redirect
-      const siteUrl = "https://www.vogelresearch.com";
-
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${siteUrl}/resetar-senha`,
+        redirectTo: `https://www.vogelresearch.com/resetar-senha`,
       });
 
       if (error) throw error;
