@@ -1,6 +1,7 @@
 "use client";
 
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
+import { useMarketData } from "@/hooks/useMarketData";
 import {
   TrendingUp,
   TrendingDown,
@@ -9,23 +10,9 @@ import {
   ArrowUpRight,
   ArrowDownRight,
   Clock,
+  Loader2,
+  AlertCircle,
 } from "lucide-react";
-
-// Mock data - será substituído por API real
-const marketData = {
-  sp500: { value: "4,783.45", change: "+1.23%", isPositive: true },
-  nasdaq: { value: "15,011.35", change: "+2.15%", isPositive: true },
-  dow: { value: "37,305.16", change: "+0.56%", isPositive: true },
-  vix: { value: "13.42", change: "-5.23%", isPositive: true },
-};
-
-const fearGreedIndex = {
-  value: 67,
-  label: "Ganância",
-  description: "O mercado está mostrando sinais de ganância",
-  color: "text-green-400",
-  bgColor: "bg-green-500/20",
-};
 
 const recentAnalyses = [
   {
@@ -49,6 +36,16 @@ const recentAnalyses = [
 ];
 
 export default function DashboardPage() {
+  const { data, loading, error } = useMarketData();
+
+  // Formata a idade do cache para exibição
+  const formatCacheAge = (cacheAge?: number) => {
+    if (!cacheAge) return "agora";
+    if (cacheAge < 60) return `há ${cacheAge}s`;
+    const minutes = Math.floor(cacheAge / 60);
+    return `há ${minutes} min`;
+  };
+
   return (
     <>
       <DashboardHeader title="Dashboard" />
@@ -67,7 +64,22 @@ export default function DashboardPage() {
             </div>
             <div className="hidden md:flex items-center gap-2 text-gray-600 dark:text-vogel-gray text-sm">
               <Clock className="w-4 h-4" />
-              Atualizado há 5 minutos
+              {loading ? (
+                <span className="flex items-center gap-2">
+                  <Loader2 className="w-3 h-3 animate-spin" />
+                  Carregando...
+                </span>
+              ) : error ? (
+                <span className="flex items-center gap-2 text-red-400">
+                  <AlertCircle className="w-3 h-3" />
+                  Erro ao carregar
+                </span>
+              ) : (
+                <span>
+                  Atualizado {formatCacheAge(data?.cacheAge)}
+                  {data?.cached && " (cache)"}
+                </span>
+              )}
             </div>
           </div>
         </div>
@@ -80,107 +92,130 @@ export default function DashboardPage() {
                 Fear & Greed Index
               </h3>
 
-              {/* Gauge visual */}
-              <div className="relative w-48 h-48 mx-auto mb-4">
-                <svg className="w-full h-full" viewBox="0 0 200 200">
-                  {/* Background arc */}
-                  <path
-                    d="M 30 170 A 85 85 0 0 1 170 170"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="20"
-                    className="text-vogel-green-dark/30"
-                  />
-                  {/* Colored arc based on value */}
-                  <path
-                    d="M 30 170 A 85 85 0 0 1 170 170"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="20"
-                    strokeDasharray={`${(fearGreedIndex.value / 100) * 267} 267`}
-                    className={fearGreedIndex.color}
-                    strokeLinecap="round"
-                  />
-                  {/* Center value */}
-                  <text
-                    x="100"
-                    y="130"
-                    textAnchor="middle"
-                    className="text-5xl font-bold fill-gray-900 dark:fill-vogel-white"
-                  >
-                    {fearGreedIndex.value}
-                  </text>
-                </svg>
-              </div>
+              {loading ? (
+                <div className="flex items-center justify-center h-64">
+                  <Loader2 className="w-8 h-8 text-vogel-gold animate-spin" />
+                </div>
+              ) : error ? (
+                <div className="flex flex-col items-center justify-center h-64 text-red-400">
+                  <AlertCircle className="w-12 h-12 mb-2" />
+                  <p className="text-sm">Erro ao carregar dados</p>
+                </div>
+              ) : data?.fearGreedIndex ? (
+                <>
+                  {/* Gauge visual */}
+                  <div className="relative w-48 h-48 mx-auto mb-4">
+                    <svg className="w-full h-full" viewBox="0 0 200 200">
+                      {/* Background arc */}
+                      <path
+                        d="M 30 170 A 85 85 0 0 1 170 170"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="20"
+                        className="text-vogel-green-dark/30"
+                      />
+                      {/* Colored arc based on value */}
+                      <path
+                        d="M 30 170 A 85 85 0 0 1 170 170"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="20"
+                        strokeDasharray={`${(data.fearGreedIndex.value / 100) * 267} 267`}
+                        className={data.fearGreedIndex.color}
+                        strokeLinecap="round"
+                      />
+                      {/* Center value */}
+                      <text
+                        x="100"
+                        y="130"
+                        textAnchor="middle"
+                        className="text-5xl font-bold fill-gray-900 dark:fill-vogel-white"
+                      >
+                        {data.fearGreedIndex.value}
+                      </text>
+                    </svg>
+                  </div>
 
-              <div className="text-center">
-                <p
-                  className={`text-2xl font-bold mb-2 ${fearGreedIndex.color}`}
-                >
-                  {fearGreedIndex.label}
-                </p>
-                <p className="text-gray-600 dark:text-vogel-gray text-sm">
-                  {fearGreedIndex.description}
-                </p>
-              </div>
+                  <div className="text-center">
+                    <p
+                      className={`text-2xl font-bold mb-2 ${data.fearGreedIndex.color}`}
+                    >
+                      {data.fearGreedIndex.label}
+                    </p>
+                    <p className="text-gray-600 dark:text-vogel-gray text-sm">
+                      {data.fearGreedIndex.description}
+                    </p>
+                  </div>
+                </>
+              ) : null}
             </div>
           </div>
 
           {/* Market indices */}
           <div className="lg:col-span-2">
-            <div className="grid grid-cols-2 gap-4">
-              {Object.entries(marketData).map(([key, data]) => (
-                <div
-                  key={key}
-                  className="bg-gray-50 dark:bg-vogel-black/50 border border-gray-200 dark:border-vogel-green-dark/30 rounded-xl p-6"
-                >
-                  <div className="flex items-start justify-between mb-4">
-                    <div>
-                      <p className="text-gray-600 dark:text-vogel-gray text-sm uppercase tracking-wide mb-1">
-                        {key === "sp500"
-                          ? "S&P 500"
-                          : key === "nasdaq"
-                          ? "NASDAQ"
-                          : key === "dow"
-                          ? "DOW JONES"
-                          : "VIX"}
-                      </p>
-                      <p className="text-2xl font-bold text-gray-900 dark:text-vogel-white">
-                        {data.value}
-                      </p>
+            {loading ? (
+              <div className="flex items-center justify-center h-full min-h-[300px]">
+                <Loader2 className="w-8 h-8 text-vogel-gold animate-spin" />
+              </div>
+            ) : error ? (
+              <div className="flex flex-col items-center justify-center h-full min-h-[300px] text-red-400">
+                <AlertCircle className="w-12 h-12 mb-2" />
+                <p className="text-sm">Erro ao carregar dados do mercado</p>
+              </div>
+            ) : data ? (
+              <div className="grid grid-cols-2 gap-4">
+                {[
+                  { key: "sp500", label: "S&P 500", data: data.sp500 },
+                  { key: "nasdaq", label: "NASDAQ", data: data.nasdaq },
+                  { key: "dow", label: "DOW JONES", data: data.dow },
+                  { key: "vix", label: "VIX", data: data.vix },
+                ].map((item) => (
+                  <div
+                    key={item.key}
+                    className="bg-gray-50 dark:bg-vogel-black/50 border border-gray-200 dark:border-vogel-green-dark/30 rounded-xl p-6"
+                  >
+                    <div className="flex items-start justify-between mb-4">
+                      <div>
+                        <p className="text-gray-600 dark:text-vogel-gray text-sm uppercase tracking-wide mb-1">
+                          {item.label}
+                        </p>
+                        <p className="text-2xl font-bold text-gray-900 dark:text-vogel-white">
+                          {item.data.value}
+                        </p>
+                      </div>
+                      <div
+                        className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                          item.data.isPositive
+                            ? "bg-green-500/20"
+                            : "bg-red-500/20"
+                        }`}
+                      >
+                        {item.data.isPositive ? (
+                          <TrendingUp className="w-5 h-5 text-green-400" />
+                        ) : (
+                          <TrendingDown className="w-5 h-5 text-red-400" />
+                        )}
+                      </div>
                     </div>
-                    <div
-                      className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                        data.isPositive
-                          ? "bg-green-500/20"
-                          : "bg-red-500/20"
-                      }`}
-                    >
-                      {data.isPositive ? (
-                        <TrendingUp className="w-5 h-5 text-green-400" />
-                      ) : (
-                        <TrendingDown className="w-5 h-5 text-red-400" />
-                      )}
+                    <div className="flex items-center gap-2">
+                      <span
+                        className={`flex items-center gap-1 text-sm font-semibold ${
+                          item.data.isPositive ? "text-green-400" : "text-red-400"
+                        }`}
+                      >
+                        {item.data.isPositive ? (
+                          <ArrowUpRight className="w-4 h-4" />
+                        ) : (
+                          <ArrowDownRight className="w-4 h-4" />
+                        )}
+                        {item.data.change}
+                      </span>
+                      <span className="text-gray-600 dark:text-vogel-gray text-xs">hoje</span>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span
-                      className={`flex items-center gap-1 text-sm font-semibold ${
-                        data.isPositive ? "text-green-400" : "text-red-400"
-                      }`}
-                    >
-                      {data.isPositive ? (
-                        <ArrowUpRight className="w-4 h-4" />
-                      ) : (
-                        <ArrowDownRight className="w-4 h-4" />
-                      )}
-                      {data.change}
-                    </span>
-                    <span className="text-gray-600 dark:text-vogel-gray text-xs">hoje</span>
-                  </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            ) : null}
           </div>
         </div>
 
