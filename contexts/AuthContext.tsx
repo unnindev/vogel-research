@@ -31,15 +31,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     // Verificar sessão inicial
     const getInitialSession = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
+      try {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
 
-      if (session?.user) {
-        setUser(session.user);
-        await fetchProfile(session.user.id);
+        if (session?.user) {
+          setUser(session.user);
+          try {
+            await fetchProfile(session.user.id);
+          } catch (error) {
+            console.warn('Erro ao carregar perfil inicial:', error);
+          }
+        }
+      } catch (error) {
+        console.error('Erro ao verificar sessão:', error);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     getInitialSession();
@@ -50,7 +59,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (session?.user) {
         setUser(session.user);
-        await fetchProfile(session.user.id);
+        try {
+          await fetchProfile(session.user.id);
+        } catch (error) {
+          console.warn('Erro ao carregar perfil:', error);
+        }
       } else {
         setUser(null);
         setProfile(null);
@@ -74,22 +87,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signIn = async (email: string, password: string) => {
-    setLoading(true);
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    try {
+      setLoading(true);
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-    if (error) {
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      if (data.user) {
+        setUser(data.user);
+        // Tenta buscar perfil, mas não bloqueia login se falhar
+        try {
+          await fetchProfile(data.user.id);
+        } catch (profileError) {
+          console.warn('Não foi possível carregar o perfil:', profileError);
+          // Continua com o login mesmo sem perfil
+        }
+      }
+    } finally {
       setLoading(false);
-      throw new Error(error.message);
     }
-
-    if (data.user) {
-      setUser(data.user);
-      await fetchProfile(data.user.id);
-    }
-    setLoading(false);
   };
 
   const signOut = async () => {
