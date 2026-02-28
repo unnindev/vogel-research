@@ -70,11 +70,18 @@ export default function ResetPasswordPage() {
     }
 
     try {
-      const { error } = await supabase.auth.updateUser({
+      console.log('Tentando atualizar senha...');
+
+      const { data, error } = await supabase.auth.updateUser({
         password: password,
       });
 
-      if (error) throw error;
+      console.log('Resultado:', { data, error });
+
+      if (error) {
+        console.error('Erro ao atualizar:', error);
+        throw error;
+      }
 
       setSuccess(true);
 
@@ -83,6 +90,7 @@ export default function ResetPasswordPage() {
         router.push("/login");
       }, 2000);
     } catch (err) {
+      console.error('Erro capturado:', err);
       setError(
         err instanceof Error
           ? err.message
