@@ -103,7 +103,7 @@ export default function ComunidadePage() {
           {/* Main content */}
           <div className="flex-1">
             {/* Create post */}
-            <div className="bg-vogel-black/50 border border-vogel-green-dark/30 rounded-xl p-4 mb-6">
+            <div className="bg-gray-50 dark:bg-vogel-black/50 border border-gray-200 dark:border-vogel-green-dark/30 rounded-xl p-4 mb-6">
               <form onSubmit={handleSubmit}>
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 rounded-full bg-vogel-gold/20 flex items-center justify-center text-vogel-gold font-semibold flex-shrink-0">
@@ -114,19 +114,19 @@ export default function ComunidadePage() {
                       value={newPost}
                       onChange={(e) => setNewPost(e.target.value)}
                       placeholder="Compartilhe algo com a comunidade..."
-                      className="w-full bg-transparent border-none outline-none text-vogel-white placeholder-vogel-gray resize-none min-h-[80px]"
+                      className="w-full bg-transparent border-none outline-none text-gray-900 dark:text-vogel-white placeholder-gray-500 dark:placeholder-vogel-gray resize-none min-h-[80px]"
                     />
-                    <div className="flex items-center justify-between pt-3 border-t border-vogel-green-dark/20">
+                    <div className="flex items-center justify-between pt-3 border-t border-gray-200 dark:border-vogel-green-dark/20">
                       <div className="flex items-center gap-2">
                         <button
                           type="button"
-                          className="p-2 text-vogel-gray hover:text-vogel-gold hover:bg-vogel-green-dark/20 rounded-lg transition-colors"
+                          className="p-2 text-gray-600 dark:text-vogel-gray hover:text-vogel-gold hover:bg-gray-100 dark:hover:bg-vogel-green-dark/20 rounded-lg transition-colors"
                         >
                           <ImageIcon className="w-5 h-5" />
                         </button>
                         <button
                           type="button"
-                          className="p-2 text-vogel-gray hover:text-vogel-gold hover:bg-vogel-green-dark/20 rounded-lg transition-colors"
+                          className="p-2 text-gray-600 dark:text-vogel-gray hover:text-vogel-gold hover:bg-gray-100 dark:hover:bg-vogel-green-dark/20 rounded-lg transition-colors"
                         >
                           <Smile className="w-5 h-5" />
                         </button>
@@ -150,10 +150,10 @@ export default function ComunidadePage() {
               {posts.map((post) => (
                 <div
                   key={post.id}
-                  className={`bg-vogel-black/50 border rounded-xl p-4 ${
+                  className={`bg-gray-50 dark:bg-vogel-black/50 border rounded-xl p-4 ${
                     post.isPinned
                       ? "border-vogel-gold/50"
-                      : "border-vogel-green-dark/30"
+                      : "border-gray-200 dark:border-vogel-green-dark/30"
                   }`}
                 >
                   {/* Post header */}
@@ -163,14 +163,14 @@ export default function ComunidadePage() {
                         className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold ${
                           post.isAdmin
                             ? "bg-vogel-gold/20 text-vogel-gold"
-                            : "bg-vogel-green-dark/30 text-vogel-white"
+                            : "bg-gray-200 dark:bg-vogel-green-dark/30 text-gray-900 dark:text-vogel-white"
                         }`}
                       >
                         {post.avatar}
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
-                          <p className="text-vogel-white font-medium">
+                          <p className="text-gray-900 dark:text-vogel-white font-medium">
                             {post.author}
                           </p>
                           {post.isAdmin && (
@@ -182,24 +182,24 @@ export default function ComunidadePage() {
                             <Pin className="w-4 h-4 text-vogel-gold" />
                           )}
                         </div>
-                        <p className="text-vogel-gray text-sm">{post.time}</p>
+                        <p className="text-gray-600 dark:text-vogel-gray text-sm">{post.time}</p>
                       </div>
                     </div>
-                    <button className="p-2 text-vogel-gray hover:text-vogel-white rounded-lg hover:bg-vogel-green-dark/20">
+                    <button className="p-2 text-gray-600 dark:text-vogel-gray hover:text-gray-900 dark:hover:text-vogel-white rounded-lg hover:bg-gray-100 dark:hover:bg-vogel-green-dark/20">
                       <MoreHorizontal className="w-5 h-5" />
                     </button>
                   </div>
 
                   {/* Post content */}
-                  <p className="text-vogel-white mb-4">{post.content}</p>
+                  <p className="text-gray-900 dark:text-vogel-white mb-4">{post.content}</p>
 
                   {/* Post actions */}
-                  <div className="flex items-center gap-6 pt-3 border-t border-vogel-green-dark/20">
-                    <button className="flex items-center gap-2 text-vogel-gray hover:text-red-400 transition-colors">
+                  <div className="flex items-center gap-6 pt-3 border-t border-gray-200 dark:border-vogel-green-dark/20">
+                    <button className="flex items-center gap-2 text-gray-600 dark:text-vogel-gray hover:text-red-400 transition-colors">
                       <Heart className="w-5 h-5" />
                       <span className="text-sm">{post.likes}</span>
                     </button>
-                    <button className="flex items-center gap-2 text-vogel-gray hover:text-vogel-gold transition-colors">
+                    <button className="flex items-center gap-2 text-gray-600 dark:text-vogel-gray hover:text-vogel-gold transition-colors">
                       <MessageCircle className="w-5 h-5" />
                       <span className="text-sm">{post.comments} comentários</span>
                     </button>
@@ -212,13 +212,13 @@ export default function ComunidadePage() {
           {/* Sidebar */}
           <div className="hidden lg:block w-80">
             {/* Online members */}
-            <div className="bg-vogel-black/50 border border-vogel-green-dark/30 rounded-xl p-4 sticky top-24">
+            <div className="bg-gray-50 dark:bg-vogel-black/50 border border-gray-200 dark:border-vogel-green-dark/30 rounded-xl p-4 sticky top-24">
               <div className="flex items-center gap-2 mb-4">
                 <Users className="w-5 h-5 text-vogel-gold" />
-                <h3 className="font-semibold text-vogel-white">
+                <h3 className="font-semibold text-gray-900 dark:text-vogel-white">
                   Membros Online
                 </h3>
-                <span className="ml-auto text-vogel-gray text-sm">
+                <span className="ml-auto text-gray-600 dark:text-vogel-gray text-sm">
                   {membrosOnline.length}
                 </span>
               </div>
@@ -231,15 +231,15 @@ export default function ComunidadePage() {
                         className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
                           membro.isAdmin
                             ? "bg-vogel-gold/20 text-vogel-gold"
-                            : "bg-vogel-green-dark/30 text-vogel-white"
+                            : "bg-gray-200 dark:bg-vogel-green-dark/30 text-gray-900 dark:text-vogel-white"
                         }`}
                       >
                         {membro.name[0]}
                       </div>
-                      <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-vogel-black"></span>
+                      <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white dark:border-vogel-black"></span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-vogel-white text-sm">
+                      <span className="text-gray-900 dark:text-vogel-white text-sm">
                         {membro.name}
                       </span>
                       {membro.isAdmin && (
@@ -250,9 +250,9 @@ export default function ComunidadePage() {
                 ))}
               </div>
 
-              <div className="mt-4 pt-4 border-t border-vogel-green-dark/20">
-                <p className="text-vogel-gray text-xs">
-                  Total de membros: <strong className="text-vogel-white">1,247</strong>
+              <div className="mt-4 pt-4 border-t border-gray-200 dark:border-vogel-green-dark/20">
+                <p className="text-gray-600 dark:text-vogel-gray text-xs">
+                  Total de membros: <strong className="text-gray-900 dark:text-vogel-white">1,247</strong>
                 </p>
               </div>
             </div>

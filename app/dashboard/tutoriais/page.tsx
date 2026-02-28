@@ -100,10 +100,10 @@ export default function TutoriaisPage() {
       <div className="p-6">
         {/* Header */}
         <div className="mb-8">
-          <h2 className="text-2xl font-display font-semibold text-vogel-white mb-2">
+          <h2 className="text-2xl font-display font-semibold text-gray-900 dark:text-vogel-white mb-2">
             Aprenda a investir no mercado americano
           </h2>
-          <p className="text-vogel-gray">
+          <p className="text-gray-600 dark:text-vogel-gray">
             Guias e tutoriais para você dominar os investimentos internacionais.
           </p>
         </div>
@@ -113,17 +113,17 @@ export default function TutoriaisPage() {
           {categorias.map((cat) => (
             <div
               key={cat.id}
-              className="bg-vogel-black/50 border border-vogel-green-dark/30 rounded-xl p-6 hover:border-vogel-gold/30 transition-colors cursor-pointer group"
+              className="bg-gray-50 dark:bg-vogel-black/50 border border-gray-200 dark:border-vogel-green-dark/30 rounded-xl p-6 hover:border-vogel-gold/30 transition-colors cursor-pointer group"
             >
               <div
                 className={`w-12 h-12 rounded-xl ${cat.color} flex items-center justify-center mb-4`}
               >
                 <cat.icon className="w-6 h-6" />
               </div>
-              <h3 className="text-lg font-semibold text-vogel-white mb-2 group-hover:text-vogel-gold transition-colors">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-vogel-white mb-2 group-hover:text-vogel-gold transition-colors">
                 {cat.title}
               </h3>
-              <p className="text-vogel-gray text-sm mb-4">{cat.description}</p>
+              <p className="text-gray-600 dark:text-vogel-gray text-sm mb-4">{cat.description}</p>
               <p className="text-vogel-gold text-sm font-medium">
                 {cat.tutoriais} tutoriais
               </p>
@@ -134,12 +134,12 @@ export default function TutoriaisPage() {
         {/* Lista de tutoriais */}
         <div>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold text-vogel-white">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-vogel-white">
               Todos os Tutoriais
             </h2>
             <div className="flex items-center gap-2">
-              <span className="text-vogel-gray text-sm">Filtrar por:</span>
-              <select className="bg-vogel-black border border-vogel-green-dark/30 rounded-lg px-3 py-2 text-vogel-white text-sm focus:border-vogel-gold outline-none">
+              <span className="text-gray-600 dark:text-vogel-gray text-sm">Filtrar por:</span>
+              <select className="bg-white dark:bg-vogel-black border border-gray-200 dark:border-vogel-green-dark/30 rounded-lg px-3 py-2 text-gray-900 dark:text-vogel-white text-sm focus:border-vogel-gold outline-none">
                 <option>Todas as categorias</option>
                 <option>Abrindo Conta em Corretora</option>
                 <option>Imposto de Renda</option>
@@ -149,13 +149,13 @@ export default function TutoriaisPage() {
             </div>
           </div>
 
-          <div className="bg-vogel-black/50 border border-vogel-green-dark/30 rounded-xl overflow-hidden">
+          <div className="bg-gray-50 dark:bg-vogel-black/50 border border-gray-200 dark:border-vogel-green-dark/30 rounded-xl overflow-hidden">
             {tutoriaisDestaque.map((tutorial, index) => (
               <div
                 key={tutorial.id}
-                className={`flex items-center justify-between p-4 hover:bg-vogel-green-dark/10 cursor-pointer group ${
+                className={`flex items-center justify-between p-4 hover:bg-gray-100 dark:hover:bg-vogel-green-dark/10 cursor-pointer group ${
                   index !== tutoriaisDestaque.length - 1
-                    ? "border-b border-vogel-green-dark/20"
+                    ? "border-b border-gray-200 dark:border-vogel-green-dark/20"
                     : ""
                 }`}
               >
@@ -164,29 +164,29 @@ export default function TutoriaisPage() {
                     className={`w-10 h-10 rounded-lg flex items-center justify-center ${
                       tutorial.completed
                         ? "bg-green-500/20"
-                        : "bg-vogel-green-dark/20"
+                        : "bg-gray-200 dark:bg-vogel-green-dark/20"
                     }`}
                   >
                     {tutorial.completed ? (
                       <CheckCircle className="w-5 h-5 text-green-400" />
                     ) : (
-                      <BookOpen className="w-5 h-5 text-vogel-gray" />
+                      <BookOpen className="w-5 h-5 text-gray-600 dark:text-vogel-gray" />
                     )}
                   </div>
                   <div>
-                    <h3 className="text-vogel-white font-medium group-hover:text-vogel-gold transition-colors">
+                    <h3 className="text-gray-900 dark:text-vogel-white font-medium group-hover:text-vogel-gold transition-colors">
                       {tutorial.title}
                     </h3>
-                    <p className="text-vogel-gray text-sm">{tutorial.categoria}</p>
+                    <p className="text-gray-600 dark:text-vogel-gray text-sm">{tutorial.categoria}</p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-4">
-                  <span className="text-vogel-gray text-sm flex items-center gap-1">
+                  <span className="text-gray-600 dark:text-vogel-gray text-sm flex items-center gap-1">
                     <Clock className="w-4 h-4" />
                     {tutorial.duration}
                   </span>
-                  <ChevronRight className="w-5 h-5 text-vogel-gray group-hover:text-vogel-gold transition-colors" />
+                  <ChevronRight className="w-5 h-5 text-gray-600 dark:text-vogel-gray group-hover:text-vogel-gold transition-colors" />
                 </div>
               </div>
             ))}
