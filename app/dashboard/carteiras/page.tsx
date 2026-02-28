@@ -87,63 +87,63 @@ export default function CarteirasPage() {
       <div className="p-6">
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <div className="bg-vogel-black/50 border border-vogel-green-dark/30 rounded-xl p-6">
+          <div className="bg-gray-50 dark:bg-vogel-black/50 border border-gray-200 dark:border-vogel-green-dark/30 rounded-xl p-6">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-10 h-10 rounded-lg bg-vogel-gold/20 flex items-center justify-center">
                 <PieChart className="w-5 h-5 text-vogel-gold" />
               </div>
-              <span className="text-vogel-gray text-sm">Total de Carteiras</span>
+              <span className="text-gray-600 dark:text-vogel-gray text-sm">Total de Carteiras</span>
             </div>
-            <p className="text-3xl font-bold text-vogel-white">3</p>
+            <p className="text-3xl font-bold text-gray-900 dark:text-vogel-white">3</p>
           </div>
 
-          <div className="bg-vogel-black/50 border border-vogel-green-dark/30 rounded-xl p-6">
+          <div className="bg-gray-50 dark:bg-vogel-black/50 border border-gray-200 dark:border-vogel-green-dark/30 rounded-xl p-6">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center">
                 <TrendingUp className="w-5 h-5 text-green-400" />
               </div>
-              <span className="text-vogel-gray text-sm">Melhor Performance</span>
+              <span className="text-gray-600 dark:text-vogel-gray text-sm">Melhor Performance</span>
             </div>
             <p className="text-3xl font-bold text-green-400">+24.5%</p>
-            <p className="text-vogel-gray text-xs">Carteira Growth</p>
+            <p className="text-gray-600 dark:text-vogel-gray text-xs">Carteira Growth</p>
           </div>
 
-          <div className="bg-vogel-black/50 border border-vogel-green-dark/30 rounded-xl p-6">
+          <div className="bg-gray-50 dark:bg-vogel-black/50 border border-gray-200 dark:border-vogel-green-dark/30 rounded-xl p-6">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
                 <DollarSign className="w-5 h-5 text-blue-400" />
               </div>
-              <span className="text-vogel-gray text-sm">Total de Ações</span>
+              <span className="text-gray-600 dark:text-vogel-gray text-sm">Total de Ações</span>
             </div>
-            <p className="text-3xl font-bold text-vogel-white">24</p>
+            <p className="text-3xl font-bold text-gray-900 dark:text-vogel-white">24</p>
           </div>
         </div>
 
         {/* Carteiras */}
         <div className="mb-8">
-          <h2 className="text-xl font-semibold text-vogel-white mb-4">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-vogel-white mb-4">
             Suas Carteiras
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {carteiras.map((carteira) => (
               <div
                 key={carteira.id}
-                className="bg-vogel-black/50 border border-vogel-green-dark/30 rounded-xl p-6 hover:border-vogel-gold/30 transition-colors cursor-pointer group"
+                className="bg-gray-50 dark:bg-vogel-black/50 border border-gray-200 dark:border-vogel-green-dark/30 rounded-xl p-6 hover:border-vogel-gold/30 transition-colors cursor-pointer group"
               >
                 <div className="flex items-start justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-vogel-white group-hover:text-vogel-gold transition-colors">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-vogel-white group-hover:text-vogel-gold transition-colors">
                     {carteira.name}
                   </h3>
-                  <ChevronRight className="w-5 h-5 text-vogel-gray group-hover:text-vogel-gold transition-colors" />
+                  <ChevronRight className="w-5 h-5 text-gray-600 dark:text-vogel-gray group-hover:text-vogel-gold transition-colors" />
                 </div>
 
-                <p className="text-vogel-gray text-sm mb-4">
+                <p className="text-gray-600 dark:text-vogel-gray text-sm mb-4">
                   {carteira.description}
                 </p>
 
-                <div className="flex items-center justify-between pt-4 border-t border-vogel-green-dark/20">
+                <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-vogel-green-dark/20">
                   <div>
-                    <p className="text-vogel-gray text-xs">Retorno YTD</p>
+                    <p className="text-gray-600 dark:text-vogel-gray text-xs">Retorno YTD</p>
                     <p
                       className={`text-lg font-bold ${
                         carteira.isPositive ? "text-green-400" : "text-red-400"
@@ -153,14 +153,14 @@ export default function CarteirasPage() {
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="text-vogel-gray text-xs">Ações</p>
-                    <p className="text-lg font-bold text-vogel-white">
+                    <p className="text-gray-600 dark:text-vogel-gray text-xs">Ações</p>
+                    <p className="text-lg font-bold text-gray-900 dark:text-vogel-white">
                       {carteira.totalStocks}
                     </p>
                   </div>
                 </div>
 
-                <p className="text-vogel-gray text-xs mt-4 flex items-center gap-1">
+                <p className="text-gray-600 dark:text-vogel-gray text-xs mt-4 flex items-center gap-1">
                   <Calendar className="w-3 h-3" />
                   Atualizada em {carteira.lastUpdate}
                 </p>
@@ -171,27 +171,27 @@ export default function CarteirasPage() {
 
         {/* Últimas operações */}
         <div>
-          <h2 className="text-xl font-semibold text-vogel-white mb-4">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-vogel-white mb-4">
             Últimas Operações
           </h2>
-          <div className="bg-vogel-black/50 border border-vogel-green-dark/30 rounded-xl overflow-hidden">
+          <div className="bg-gray-50 dark:bg-vogel-black/50 border border-gray-200 dark:border-vogel-green-dark/30 rounded-xl overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-vogel-green-dark/20">
-                    <th className="text-left text-vogel-gray text-sm font-medium px-6 py-4">
+                  <tr className="border-b border-gray-200 dark:border-vogel-green-dark/20">
+                    <th className="text-left text-gray-600 dark:text-vogel-gray text-sm font-medium px-6 py-4">
                       Operação
                     </th>
-                    <th className="text-left text-vogel-gray text-sm font-medium px-6 py-4">
+                    <th className="text-left text-gray-600 dark:text-vogel-gray text-sm font-medium px-6 py-4">
                       Ativo
                     </th>
-                    <th className="text-left text-vogel-gray text-sm font-medium px-6 py-4">
+                    <th className="text-left text-gray-600 dark:text-vogel-gray text-sm font-medium px-6 py-4">
                       Preço
                     </th>
-                    <th className="text-left text-vogel-gray text-sm font-medium px-6 py-4">
+                    <th className="text-left text-gray-600 dark:text-vogel-gray text-sm font-medium px-6 py-4">
                       Carteira
                     </th>
-                    <th className="text-left text-vogel-gray text-sm font-medium px-6 py-4">
+                    <th className="text-left text-gray-600 dark:text-vogel-gray text-sm font-medium px-6 py-4">
                       Data
                     </th>
                   </tr>
@@ -200,7 +200,7 @@ export default function CarteirasPage() {
                   {ultimasOperacoes.map((op) => (
                     <tr
                       key={op.id}
-                      className="border-b border-vogel-green-dark/10 hover:bg-vogel-green-dark/10"
+                      className="border-b border-gray-100 dark:border-vogel-green-dark/10 hover:bg-gray-100 dark:hover:bg-vogel-green-dark/10"
                     >
                       <td className="px-6 py-4">
                         <span
@@ -220,17 +220,17 @@ export default function CarteirasPage() {
                       </td>
                       <td className="px-6 py-4">
                         <div>
-                          <p className="text-vogel-white font-mono font-semibold">
+                          <p className="text-gray-900 dark:text-vogel-white font-mono font-semibold">
                             {op.ticker}
                           </p>
-                          <p className="text-vogel-gray text-xs">{op.name}</p>
+                          <p className="text-gray-600 dark:text-vogel-gray text-xs">{op.name}</p>
                         </div>
                       </td>
-                      <td className="px-6 py-4 text-vogel-white">{op.price}</td>
-                      <td className="px-6 py-4 text-vogel-gray text-sm">
+                      <td className="px-6 py-4 text-gray-900 dark:text-vogel-white">{op.price}</td>
+                      <td className="px-6 py-4 text-gray-600 dark:text-vogel-gray text-sm">
                         {op.carteira}
                       </td>
-                      <td className="px-6 py-4 text-vogel-gray text-sm">
+                      <td className="px-6 py-4 text-gray-600 dark:text-vogel-gray text-sm">
                         {op.date}
                       </td>
                     </tr>
