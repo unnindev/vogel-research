@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Sidebar from "@/components/dashboard/Sidebar";
 import MobileSidebar from "@/components/dashboard/MobileSidebar";
 import { useAuth } from "@/contexts/AuthContext";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 
 export default function DashboardLayout({
   children,
@@ -36,20 +37,22 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen bg-vogel-black">
-      {/* Desktop Sidebar */}
-      <div className="hidden lg:block">
-        <Sidebar />
+    <ThemeProvider>
+      <div className="min-h-screen bg-white dark:bg-vogel-black transition-colors">
+        {/* Desktop Sidebar */}
+        <div className="hidden lg:block">
+          <Sidebar />
+        </div>
+
+        {/* Mobile Sidebar */}
+        <MobileSidebar
+          isOpen={isMobileMenuOpen}
+          onClose={() => setIsMobileMenuOpen(false)}
+        />
+
+        {/* Main content */}
+        <main className="lg:ml-20 min-h-screen">{children}</main>
       </div>
-
-      {/* Mobile Sidebar */}
-      <MobileSidebar
-        isOpen={isMobileMenuOpen}
-        onClose={() => setIsMobileMenuOpen(false)}
-      />
-
-      {/* Main content */}
-      <main className="lg:ml-20 min-h-screen">{children}</main>
-    </div>
+    </ThemeProvider>
   );
 }

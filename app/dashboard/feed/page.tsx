@@ -88,11 +88,11 @@ export default function DashboardPage() {
 
       <div className="p-6">
         {/* Welcome banner */}
-        <div className="bg-gradient-to-r from-vogel-green-dark/30 to-vogel-gold/10 rounded-2xl p-6 mb-8 border border-vogel-green-dark/30">
-          <h2 className="text-2xl font-display font-semibold text-vogel-white mb-2">
+        <div className="bg-gradient-to-r from-vogel-green-dark/30 to-vogel-gold/10 rounded-2xl p-6 mb-8 border border-gray-200 dark:border-vogel-green-dark/30">
+          <h2 className="text-2xl font-display font-semibold text-gray-900 dark:text-vogel-white mb-2">
             Bem-vindo de volta! 👋
           </h2>
-          <p className="text-vogel-gray">
+          <p className="text-gray-600 dark:text-vogel-gray">
             Confira as últimas análises e atualizações da Vogel Research.
           </p>
         </div>
@@ -102,7 +102,7 @@ export default function DashboardPage() {
           {feedPosts.map((post) => (
             <article
               key={post.id}
-              className="bg-vogel-black/50 border border-vogel-green-dark/30 rounded-xl p-6 hover:border-vogel-gold/30 transition-colors"
+              className="bg-gray-50 dark:bg-vogel-black/50 border border-gray-200 dark:border-vogel-green-dark/30 rounded-xl p-6 hover:border-vogel-gold/30 transition-colors"
             >
               {/* Post header */}
               <div className="flex items-start justify-between mb-4">
@@ -111,8 +111,8 @@ export default function DashboardPage() {
                     B
                   </div>
                   <div>
-                    <p className="text-vogel-white font-medium">{post.author}</p>
-                    <p className="text-vogel-gray text-sm flex items-center gap-2">
+                    <p className="text-gray-900 dark:text-vogel-white font-medium">{post.author}</p>
+                    <p className="text-gray-600 dark:text-vogel-gray text-sm flex items-center gap-2">
                       <Clock className="w-3 h-3" />
                       {post.date}
                     </p>
@@ -138,15 +138,15 @@ export default function DashboardPage() {
               </div>
 
               {/* Post content */}
-              <h3 className="text-xl font-semibold text-vogel-white mb-2 hover:text-vogel-gold cursor-pointer transition-colors">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-vogel-white mb-2 hover:text-vogel-gold cursor-pointer transition-colors">
                 {post.title}
               </h3>
-              <p className="text-vogel-gray mb-4">{post.excerpt}</p>
+              <p className="text-gray-600 dark:text-vogel-gray mb-4">{post.excerpt}</p>
 
               {/* Ticker info if available */}
               {post.ticker && (
-                <div className="flex items-center gap-4 mb-4 p-3 bg-vogel-green-dark/10 rounded-lg w-fit">
-                  <span className="font-mono font-semibold text-vogel-white">
+                <div className="flex items-center gap-4 mb-4 p-3 bg-gray-200 dark:bg-vogel-green-dark/10 rounded-lg w-fit">
+                  <span className="font-mono font-semibold text-gray-900 dark:text-vogel-white">
                     {post.ticker}
                   </span>
                   <span
@@ -166,9 +166,9 @@ export default function DashboardPage() {
 
               {/* Video thumbnail if video */}
               {post.type === "video" && (
-                <div className="relative mb-4 rounded-lg overflow-hidden bg-vogel-green-dark/20 aspect-video flex items-center justify-center cursor-pointer group">
+                <div className="relative mb-4 rounded-lg overflow-hidden bg-gray-200 dark:bg-vogel-green-dark/20 aspect-video flex items-center justify-center cursor-pointer group">
                   <div className="w-16 h-16 rounded-full bg-vogel-gold/90 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Play className="w-8 h-8 text-vogel-black ml-1" />
+                    <Play className="w-8 h-8 text-gray-900 dark:text-vogel-black ml-1" />
                   </div>
                   {post.duration && (
                     <span className="absolute bottom-3 right-3 bg-black/80 text-white text-xs px-2 py-1 rounded">
@@ -179,12 +179,12 @@ export default function DashboardPage() {
               )}
 
               {/* Post actions */}
-              <div className="flex items-center gap-6 pt-4 border-t border-vogel-green-dark/20">
-                <button className="flex items-center gap-2 text-vogel-gray hover:text-red-400 transition-colors">
+              <div className="flex items-center gap-6 pt-4 border-t border-gray-200 dark:border-vogel-green-dark/20">
+                <button className="flex items-center gap-2 text-gray-600 dark:text-vogel-gray hover:text-red-400 transition-colors">
                   <Heart className="w-5 h-5" />
                   <span className="text-sm">{post.likes}</span>
                 </button>
-                <button className="flex items-center gap-2 text-vogel-gray hover:text-vogel-gold transition-colors">
+                <button className="flex items-center gap-2 text-gray-600 dark:text-vogel-gray hover:text-vogel-gold transition-colors">
                   <MessageCircle className="w-5 h-5" />
                   <span className="text-sm">{post.comments}</span>
                 </button>
@@ -193,7 +193,7 @@ export default function DashboardPage() {
                   className={`flex items-center gap-2 transition-colors ${
                     savedPosts.includes(post.id)
                       ? "text-vogel-gold"
-                      : "text-vogel-gray hover:text-vogel-gold"
+                      : "text-gray-600 dark:text-vogel-gray hover:text-vogel-gold"
                   }`}
                 >
                   <Bookmark

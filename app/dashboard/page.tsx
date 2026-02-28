@@ -55,17 +55,17 @@ export default function DashboardPage() {
 
       <div className="p-6">
         {/* Welcome banner */}
-        <div className="bg-gradient-to-r from-vogel-green-dark/30 to-vogel-gold/10 rounded-2xl p-6 mb-8 border border-vogel-green-dark/30">
+        <div className="bg-gradient-to-r from-vogel-green-dark/30 to-vogel-gold/10 rounded-2xl p-6 mb-8 border border-gray-200 dark:border-vogel-green-dark/30">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-2xl font-display font-semibold text-vogel-white mb-2">
+              <h2 className="text-2xl font-display font-semibold text-gray-900 dark:text-vogel-white mb-2">
                 Bem-vindo de volta! 👋
               </h2>
-              <p className="text-vogel-gray">
+              <p className="text-gray-600 dark:text-vogel-gray">
                 Acompanhe as principais métricas do mercado americano
               </p>
             </div>
-            <div className="hidden md:flex items-center gap-2 text-vogel-gray text-sm">
+            <div className="hidden md:flex items-center gap-2 text-gray-600 dark:text-vogel-gray text-sm">
               <Clock className="w-4 h-4" />
               Atualizado há 5 minutos
             </div>
@@ -75,8 +75,8 @@ export default function DashboardPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
           {/* Fear & Greed Index */}
           <div className="lg:col-span-1">
-            <div className="bg-vogel-black/50 border border-vogel-green-dark/30 rounded-xl p-6 h-full">
-              <h3 className="text-lg font-semibold text-vogel-white mb-4">
+            <div className="bg-gray-50 dark:bg-vogel-black/50 border border-gray-200 dark:border-vogel-green-dark/30 rounded-xl p-6 h-full">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-vogel-white mb-4">
                 Fear & Greed Index
               </h3>
 
@@ -106,7 +106,7 @@ export default function DashboardPage() {
                     x="100"
                     y="130"
                     textAnchor="middle"
-                    className="text-5xl font-bold fill-vogel-white"
+                    className="text-5xl font-bold fill-gray-900 dark:fill-vogel-white"
                   >
                     {fearGreedIndex.value}
                   </text>
@@ -119,7 +119,7 @@ export default function DashboardPage() {
                 >
                   {fearGreedIndex.label}
                 </p>
-                <p className="text-vogel-gray text-sm">
+                <p className="text-gray-600 dark:text-vogel-gray text-sm">
                   {fearGreedIndex.description}
                 </p>
               </div>
@@ -132,11 +132,11 @@ export default function DashboardPage() {
               {Object.entries(marketData).map(([key, data]) => (
                 <div
                   key={key}
-                  className="bg-vogel-black/50 border border-vogel-green-dark/30 rounded-xl p-6"
+                  className="bg-gray-50 dark:bg-vogel-black/50 border border-gray-200 dark:border-vogel-green-dark/30 rounded-xl p-6"
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div>
-                      <p className="text-vogel-gray text-sm uppercase tracking-wide mb-1">
+                      <p className="text-gray-600 dark:text-vogel-gray text-sm uppercase tracking-wide mb-1">
                         {key === "sp500"
                           ? "S&P 500"
                           : key === "nasdaq"
@@ -145,7 +145,7 @@ export default function DashboardPage() {
                           ? "DOW JONES"
                           : "VIX"}
                       </p>
-                      <p className="text-2xl font-bold text-vogel-white">
+                      <p className="text-2xl font-bold text-gray-900 dark:text-vogel-white">
                         {data.value}
                       </p>
                     </div>
@@ -176,7 +176,7 @@ export default function DashboardPage() {
                       )}
                       {data.change}
                     </span>
-                    <span className="text-vogel-gray text-xs">hoje</span>
+                    <span className="text-gray-600 dark:text-vogel-gray text-xs">hoje</span>
                   </div>
                 </div>
               ))}
@@ -185,9 +185,9 @@ export default function DashboardPage() {
         </div>
 
         {/* Recent analyses */}
-        <div className="bg-vogel-black/50 border border-vogel-green-dark/30 rounded-xl overflow-hidden">
-          <div className="p-6 border-b border-vogel-green-dark/20 flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-vogel-white">
+        <div className="bg-gray-50 dark:bg-vogel-black/50 border border-gray-200 dark:border-vogel-green-dark/30 rounded-xl overflow-hidden">
+          <div className="p-6 border-b border-gray-200 dark:border-vogel-green-dark/20 flex items-center justify-between">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-vogel-white">
               Análises Recentes
             </h3>
             <a
@@ -198,11 +198,11 @@ export default function DashboardPage() {
             </a>
           </div>
 
-          <div className="divide-y divide-vogel-green-dark/20">
+          <div className="divide-y divide-gray-200 dark:divide-vogel-green-dark/20">
             {recentAnalyses.map((analysis) => (
               <div
                 key={analysis.id}
-                className="p-6 hover:bg-vogel-green-dark/10 cursor-pointer transition-colors"
+                className="p-6 hover:bg-gray-100 dark:hover:bg-vogel-green-dark/10 cursor-pointer transition-colors"
               >
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-lg bg-vogel-gold/20 flex items-center justify-center">
@@ -211,12 +211,12 @@ export default function DashboardPage() {
                     </span>
                   </div>
                   <div className="flex-1">
-                    <p className="text-vogel-white font-medium hover:text-vogel-gold transition-colors">
+                    <p className="text-gray-900 dark:text-vogel-white font-medium hover:text-vogel-gold transition-colors">
                       {analysis.title}
                     </p>
-                    <p className="text-vogel-gray text-sm">{analysis.date}</p>
+                    <p className="text-gray-600 dark:text-vogel-gray text-sm">{analysis.date}</p>
                   </div>
-                  <ArrowUpRight className="w-5 h-5 text-vogel-gray" />
+                  <ArrowUpRight className="w-5 h-5 text-gray-600 dark:text-vogel-gray" />
                 </div>
               </div>
             ))}

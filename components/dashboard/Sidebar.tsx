@@ -34,12 +34,12 @@ export default function Sidebar() {
     <aside
       onMouseEnter={() => setIsExpanded(true)}
       onMouseLeave={() => setIsExpanded(false)}
-      className={`fixed left-0 top-0 h-screen bg-vogel-black border-r border-vogel-green-dark/20 flex flex-col z-40 transition-all duration-300 ${
+      className={`fixed left-0 top-0 h-screen bg-white dark:bg-vogel-black border-r border-gray-200 dark:border-vogel-green-dark/20 flex flex-col z-40 transition-all duration-300 ${
         isExpanded ? "w-64" : "w-20"
       }`}
     >
       {/* Logo */}
-      <div className="h-20 border-b border-vogel-green-dark/20 flex items-center justify-center px-4">
+      <div className="h-20 border-b border-gray-200 dark:border-vogel-green-dark/20 flex items-center justify-center px-4">
         <Link href="/dashboard" className="flex items-center gap-2">
           <Image
             src="/logo-transparent.png"
@@ -49,7 +49,7 @@ export default function Sidebar() {
             className="flex-shrink-0"
           />
           <span
-            className={`font-display text-lg font-semibold text-vogel-white tracking-wide whitespace-nowrap transition-opacity duration-300 ${
+            className={`font-display text-lg font-semibold text-gray-900 dark:text-vogel-white tracking-wide whitespace-nowrap transition-opacity duration-300 ${
               isExpanded ? "opacity-100" : "opacity-0 w-0"
             }`}
           >
@@ -73,7 +73,7 @@ export default function Sidebar() {
                   className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-200 relative group ${
                     isActive
                       ? "bg-vogel-gold/10 text-vogel-gold"
-                      : "text-vogel-gray hover:text-vogel-white hover:bg-vogel-green-dark/20"
+                      : "text-gray-600 dark:text-vogel-gray hover:text-gray-900 dark:hover:text-vogel-white hover:bg-gray-100 dark:hover:bg-vogel-green-dark/20"
                   }`}
                   title={!isExpanded ? item.label : ""}
                 >
@@ -88,7 +88,7 @@ export default function Sidebar() {
 
                   {/* Tooltip quando minimizado */}
                   {!isExpanded && (
-                    <span className="absolute left-full ml-2 px-2 py-1 bg-vogel-black border border-vogel-green-dark/30 rounded-lg text-sm text-vogel-white whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50">
+                    <span className="absolute left-full ml-2 px-2 py-1 bg-white dark:bg-vogel-black border border-gray-200 dark:border-vogel-green-dark/30 rounded-lg text-sm text-gray-900 dark:text-vogel-white whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50">
                       {item.label}
                     </span>
                   )}
@@ -99,7 +99,7 @@ export default function Sidebar() {
 
           {/* Admin link - only show for admins */}
           {isAdmin && (
-            <li className="pt-4 mt-4 border-t border-vogel-green-dark/20">
+            <li className="pt-4 mt-4 border-t border-gray-200 dark:border-vogel-green-dark/20">
               <Link
                 href="/admin"
                 className="flex items-center gap-3 px-3 py-3 rounded-lg text-vogel-gold hover:bg-vogel-gold/10 transition-all duration-200 relative group"
@@ -115,7 +115,7 @@ export default function Sidebar() {
                 </span>
 
                 {!isExpanded && (
-                  <span className="absolute left-full ml-2 px-2 py-1 bg-vogel-black border border-vogel-green-dark/30 rounded-lg text-sm text-vogel-white whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50">
+                  <span className="absolute left-full ml-2 px-2 py-1 bg-white dark:bg-vogel-black border border-gray-200 dark:border-vogel-green-dark/30 rounded-lg text-sm text-gray-900 dark:text-vogel-white whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50">
                     Painel Admin
                   </span>
                 )}
@@ -126,13 +126,13 @@ export default function Sidebar() {
       </nav>
 
       {/* User section */}
-      <div className="p-3 border-t border-vogel-green-dark/20">
+      <div className="p-3 border-t border-gray-200 dark:border-vogel-green-dark/20">
         <div
           className={`flex items-center gap-3 px-3 py-3 mb-2 ${
             !isExpanded ? "justify-center" : ""
           }`}
         >
-          <div className="w-10 h-10 rounded-full bg-vogel-green-dark/30 flex items-center justify-center text-vogel-gold font-semibold flex-shrink-0">
+          <div className="w-10 h-10 rounded-full bg-gray-200 dark:bg-vogel-green-dark/30 flex items-center justify-center text-vogel-gold font-semibold flex-shrink-0">
             {profile?.name?.[0]?.toUpperCase() || "U"}
           </div>
           <div
@@ -140,17 +140,17 @@ export default function Sidebar() {
               isExpanded ? "opacity-100" : "opacity-0 w-0"
             }`}
           >
-            <p className="text-vogel-white font-medium truncate text-sm">
+            <p className="text-gray-900 dark:text-vogel-white font-medium truncate text-sm">
               {profile?.name || "Usuário"}
             </p>
-            <p className="text-vogel-gray text-xs truncate">
+            <p className="text-gray-600 dark:text-vogel-gray text-xs truncate">
               {profile?.email || ""}
             </p>
           </div>
         </div>
         <button
           onClick={signOut}
-          className={`flex items-center gap-3 px-3 py-3 w-full rounded-lg text-vogel-gray hover:text-red-400 hover:bg-red-400/10 transition-all duration-200 relative group ${
+          className={`flex items-center gap-3 px-3 py-3 w-full rounded-lg text-gray-600 dark:text-vogel-gray hover:text-red-400 hover:bg-red-400/10 transition-all duration-200 relative group ${
             !isExpanded ? "justify-center" : ""
           }`}
           title={!isExpanded ? "Sair" : ""}
@@ -165,7 +165,7 @@ export default function Sidebar() {
           </span>
 
           {!isExpanded && (
-            <span className="absolute left-full ml-2 px-2 py-1 bg-vogel-black border border-vogel-green-dark/30 rounded-lg text-sm text-vogel-white whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50">
+            <span className="absolute left-full ml-2 px-2 py-1 bg-white dark:bg-vogel-black border border-gray-200 dark:border-vogel-green-dark/30 rounded-lg text-sm text-gray-900 dark:text-vogel-white whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50">
               Sair
             </span>
           )}
