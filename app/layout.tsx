@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
+import TickerTape from "@/components/TickerTape";
 
 export const metadata: Metadata = {
   title: "Vogel Research | Análise de Ações Americanas",
@@ -44,6 +45,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className="antialiased">
+        <TickerTape />
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
